@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en" data-content_root="../"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Launch an instance from a volume — nova 29.1.0.dev4 documentation</title>
+    <link rel="stylesheet" type="text/css" href="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/pygments.css">
+    <link rel="stylesheet" type="text/css" href="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/basic.css">
+    <link rel="stylesheet" type="text/css" href="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/graphviz.css">
+    <link rel="stylesheet" type="text/css" href="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/support-matrix.css">
+    <link rel="stylesheet" type="text/css" href="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/feature-matrix.css">
+    <script src="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/embed.min.js"></script><script async="" src="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/analytics.js"></script><script src="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/documentation_options.js"></script>
+    <script src="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/doctools.js"></script>
+    <script src="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="https://docs.openstack.org/nova/latest/genindex.html">
+    <link rel="search" title="Search" href="https://docs.openstack.org/nova/latest/search.html">
+    <link rel="next" title="Launch an instance using ISO image" href="https://docs.openstack.org/nova/latest/user/launch-instance-using-ISO-image.html">
+    <link rel="prev" title="Launch an instance from an image" href="https://docs.openstack.org/nova/latest/user/launch-instance-from-image.html">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap CSS -->
+<link href="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/bootstrap.min.css" rel="stylesheet">
+
+<!-- Fonts -->
+<link href="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/font-awesome.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/combined.css" rel="stylesheet">
+
+<!-- Search CSS -->
+<link href="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/search.css" rel="stylesheet">
+
+<!-- Pygments CSS -->
+<link href="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/pygments_002.css" rel="stylesheet">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-17511903-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+  <style type="text/css">
+.ossw-search-bar-wrapper {
+	position: relative;
+}
+
+#search-bar-input {
+	width: 100%;
+	border: 2px solid #dae5ee;
+	border-radius: 4px;
+	height: 37px;
+	padding: 0 0 0 10px;
+	background: #fff;
+	color: #30739C;
+	font-size: 12px;
+	text-transform: lowercase;
+	font-weight: 400;
+}
+
+#search-bar-input::placeholder {
+	color: #C7CAE0;
+}
+
+#search-bar-input:focus {
+	border-color: #30739C;
+	outline: none;
+}
+
+.ossw-search-bar-close {
+	cursor:	pointer;
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	color: #dae5ee;
+	z-index: 1001;
+	font-size: 16px;
+}
+
+.ossw-search-bar-close:hover {
+	color: #30739C;
+}
+
+.ossw-no-results {
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1;
+	color: #8B9BAD;
+}
+
+.ossw-search-suggestions-wrapper {
+	display: none;
+}
+
+.ossw-search-suggestions {
+	border: 1px solid #DDDDDD;
+	padding: 5px;
+	position: relative;
+	top: 10px;
+	z-index: 9999;
+	background: white;
+	width: 100%;
+}
+
+.ossw-result-item {
+	padding:10px 5px;
+	display:block;
+	position:relative;
+	cursor:pointer;
+	border-bottom:1px solid #E9EDF2;
+	text-align:left;
+	text-decoration:none
+}
+
+.ossw-result-item:before{
+	right:22px;
+	top:50%;
+	margin-top:-3px;
+	width:6px;
+	height:6px;
+	border-style:solid;
+	border-width:1px 1px 0 0;
+	border-color:#C5D1DE;
+	-webkit-transform:rotate(45deg);
+	-moz-transform:rotate(45deg);
+	-ms-transform:rotate(45deg);
+	transform:rotate(45deg);
+	display:block;
+	position:absolute;
+	content:""
+}
+
+.ossw-result-item:after{
+	display:table;
+	content:"";
+	width:0;
+	height:0;
+	clear:both
+}
+
+.ossw-result-item:hover {
+	background-color: rgba(0,0,0,0.05);
+}
+.ossw-result-item:hover:before {
+	border-color:#8B9BAD
+}
+.ossw-result-item:hover .ossw-result-detail {
+	color:#3B454F
+}
+
+.ossw-result-item em{
+	font-style:normal;
+	-webkit-box-shadow:inset 0 -1px 0 rgba(0,0,0,0.1);
+	-moz-box-shadow:inset 0 -1px 0 rgba(0,0,0,0.1);
+	box-shadow:inset 0 -1px 0 rgba(0,0,0,0.1);
+	font-weight: bold;
+	background-color: #f6fcfe;
+}
+
+.ossw-result-heading {
+	width: 90%;
+	font-weight:500;
+	font-size:13px;
+	line-height:1.2;
+	margin-bottom:4px;
+	color:#258BF8;
+	white-space:nowrap;
+	overflow:hidden;
+	-ms-text-overflow:ellipsis;
+	text-overflow:ellipsis;
+}
+
+
+.ossw-result-detail {
+	width: 90%;
+	max-height:31px;
+	overflow:hidden;
+	font-size:12px;
+	font-weight:400;
+	line-height:1.4;
+	color:#8B9BAD
+}
+
+.ossw-search-results {
+	display: none;
+}
+
+.ossw-search-results .ossw-overlay {
+	position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:99999991
+}
+
+.ossw-search-results .ossw-overlay.ossw-dismiss {
+	display:none
+}
+
+.ossw-search-results .ossw-overlay.ossw-dismiss .ossw-container {
+	opacity:0;
+	-webkit-animation:st-ui-fade-out ease-in-out 0.5s;
+	-moz-animation:st-ui-fade-out ease-in-out 0.5s;
+	animation:st-ui-fade-out ease-in-out 0.5s
+}
+
+.ossw-search-results .ossw-container {
+	position: fixed;
+	top: 0;
+	margin: 64px 0 0 0;
+	width: 60%;
+	height: 80%;
+	max-width: 800px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	background: #fff;
+	z-index: 99999992;
+	-webkit-animation: st-ui-fade-in ease-in-out 0.5s;
+	-moz-animation: st-ui-fade-in ease-in-out 0.5s;
+	animation: st-ui-fade-in ease-in-out 0.5s;
+	overflow: hidden;
+	-webkit-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+	text-size-adjust: none;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	font-family: system, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande", sans-serif;
+}
+
+@media (max-width: 660px) {
+	.ossw-pagination .ossw-page-link:not(.ossw-active):not(.next) {
+		display: none !important;
+	}
+}
+
+@media only screen and (orientation: portrait) {
+	.ossw-search-results .ossw-container {
+		height: 60%;
+	}
+}
+
+.ossw-search-results .ossw-container .ossw-header-wrapper {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+	text-size-adjust: none;
+	font-family: system, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande", sans-serif;
+}
+
+.ossw-search-results .ossw-container .ossw-header-wrapper .ossw-header {
+	position: relative;
+	width: 100%;
+	height: 49px;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	z-index: 99999997;
+	background: #F9FAFB;
+	-moz-background-clip: padding-box;
+	background-clip: padding-box;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	border-radius: 5px 5px 0 0;
+}
+
+.ossw-search-results .ossw-container .ossw-header-wrapper .ossw-header input{
+	padding: 0 120px 0 36px;
+	width: 100%;
+	height: 48px;
+	background: transparent;
+	border: 0;
+	outline: none;
+	color: #3B454F;
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 19px;
+	-webkit-border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	border-radius: 5px 5px 0 0;
+	font-family: system, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande", sans-serif;
+}
+
+.ossw-search-results .ossw-container .ossw-header-wrapper .ossw-header input:focus{
+	height:50px;border-bottom:2px solid #33AAFF
+}
+
+.ossw-search-results .ossw-container .ossw-header-wrapper .ossw-header .ossw-search-icon {
+	display: block;
+	position: absolute;
+	top: 18px;
+	left: 15px;
+	width: 13px;
+	height: 13px;
+	pointer-events: none;
+}
+
+.ossw-search-results .ossw-container .ossw-header-wrapper .ossw-header .ossw-search-icon .fa {
+	opacity: 0.6;
+}
+
+.ossw-search-results .ossw-container .ossw-header-wrapper .ossw-header .ossw-close-icon {
+	display: block;
+	position: absolute;
+	top: 16px;
+	right: 14px;
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+}
+
+.ossw-search-results .ossw-container .ossw-header-wrapper .ossw-header .ossw-close-icon .fa {
+	opacity: 0.6;
+}
+
+.ossw-search-results .ossw-container .ossw-header-wrapper .ossw-header .ossw-close-icon .fa:hover {
+	opacity: 1;
+}
+
+.ossw-search-results .ossw-suggestions-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0;
+	padding: 68px 10px;
+	width: 50%;
+	height: 100%;
+	z-index: 99999995;
+	background: #fff;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	border: 0;
+	-webkit-animation: st-ui-slide-in ease-in-out 0.5s;
+	-moz-animation: st-ui-slide-in ease-in-out 0.5s;
+	animation: st-ui-slide-in ease-in-out 0.5s;
+	-webkit-box-shadow: 1px 0 3px rgba(0,0,0,0.2);
+	-moz-box-shadow: 1px 0 3px rgba(0,0,0,0.2);
+	box-shadow: 1px 0 3px rgba(0,0,0,0.2);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.ossw-search-results .ossw-suggestions-wrapper .ossw-heading {
+	margin-bottom: 0;
+	padding: 6px 18px 14px 0;
+	border-bottom: 1px solid #E9EDF2;
+	color: rgba(0,0,0,0.4);
+}
+
+.ossw-search-results .ossw-results-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 50px 0px;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.ossw-search-results .ossw-results-wrapper .ossw-results {
+	padding: 0 10px 50px 10px;
+}
+
+.ossw-search-results .ossw-footer-wrapper .ossw-footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 49px;
+	border-top: 1px solid rgba(0,0,0,0.1);
+	background: #F9FAFB;
+	z-index: 99999996;
+	-moz-background-clip: padding-box;
+	background-clip: padding-box;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-border-radius: 0 0 5px 5px;
+	-moz-border-radius: 0 0 5px 5px;
+	border-radius: 0 0 5px 5px;
+}
+
+.ossw-search-results .ossw-footer-wrapper .ossw-footer .ossw-summary {
+	display: block;
+	position: absolute;
+	width: 65%;
+	top: 18px;
+	left: 16px;
+	float: left;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1;
+	color: #8B9BAD;
+}
+
+.ossw-search-results .ossw-footer-wrapper .ossw-footer .ossw-pagination {
+	display: block;
+	padding-right: 9px;
+	float: right;
+	text-align: right;
+	font-size: 12px;
+	font-weight: 500;
+	color: #8B9BAD;
+	line-height: 1;
+}
+
+.ossw-search-results .ossw-footer-wrapper .ossw-footer .ossw-pagination .ossw-page-link {
+	display: inline-block;
+	padding: 18px 7px;
+	text-decoration: none;
+	color: #258BF8;
+	text-transform: uppercase;
+}
+
+.ossw-search-results .ossw-footer-wrapper .ossw-footer .ossw-pagination .ossw-page-link.ossw-active {
+	color: #8B9BAD;
+}
+
+.ossw-search-results .ossw-footer-wrapper .ossw-footer .ossw-pagination .ossw-page-link .ossw-right-arrow {
+	display: inline-block;
+	position: relative;
+	width: 6px;
+	height: 6px;
+	margin: 0 0 0 2px;
+}
+</style></head><body>
+
+<!-- SOURCE_FILE: https://opendev.org/openstack/nova/src/doc/source/user/launch-instance-from-volume.rst -->
+
+<script>
+    (function (window, document) {
+        var loader = function () {
+            var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+            script.src = "https://search.openstack.org/widget/embed.min.js?t="+Date.now();
+            tag.parentNode.insertBefore(script, tag);
+        };
+        window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+    })(window, document);
+</script>
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button class="navbar-toggle" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="brand-wrapper">
+        <a class="navbar-brand" href="https://www.openstack.org/"></a>
+      </div>
+      <div class="search-icon show"><i class="fa fa-search"></i> Search</div></div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<div class="search-container tiny">
+    <div class="openstack-search-bar" data-baseurl="search.openstack.org" data-context="docs-openstack"><div class="ossw-search-wrapper"><div class="ossw-search-bar-wrapper"><input type="text" id="search-bar-input" placeholder="Search OpenStack"> <i class="fa fa-times ossw-search-bar-close"></i></div> <div class="ossw-search-suggestions-wrapper"></div> <div class="ossw-search-results"><div class="ossw-overlay"></div> <div class="ossw-container"> <div class="ossw-header-wrapper"><section class="ossw-header"><input type="text" placeholder="Search OpenStack" id="search-popup-input"> <span class="ossw-search-icon"><i class="fa fa-search"></i></span> <a class="ossw-close-icon"><i class="fa fa-times"></i></a></section></div> <div><section style="display: none;" class="ossw-suggestions-wrapper"><div class="ossw-heading">suggested results</div> <div class="ossw-suggestions"></div></section> <section class="ossw-results-wrapper"><div style="display: block;" class="ossw-results"></div></section></div> <div class="ossw-footer-wrapper"><section class="ossw-footer"><span class="ossw-summary"><div>No results found for “”</div></span></section></div></div></div></div></div>
+</div>
+      <ul class="nav navbar-nav navbar-main show">
+<li class="search-container-mobile">
+    <div class="openstack-search-bar" data-baseurl="search.openstack.org" data-context="docs-openstack"><div class="ossw-search-wrapper"><div class="ossw-search-bar-wrapper"><input type="text" id="search-bar-input" placeholder="Search OpenStack"> <i class="fa fa-times ossw-search-bar-close"></i></div> <div class="ossw-search-suggestions-wrapper"></div> <div class="ossw-search-results"><div class="ossw-overlay"></div> <div class="ossw-container"> <div class="ossw-header-wrapper"><section class="ossw-header"><input type="text" placeholder="Search OpenStack" id="search-popup-input"> <span class="ossw-search-icon"><i class="fa fa-search"></i></span> <a class="ossw-close-icon"><i class="fa fa-times"></i></a></section></div> <div><section style="display: none;" class="ossw-suggestions-wrapper"><div class="ossw-heading">suggested results</div> <div class="ossw-suggestions"></div></section> <section class="ossw-results-wrapper"><div style="display: block;" class="ossw-results"></div></section></div> <div class="ossw-footer-wrapper"><section class="ossw-footer"><span class="ossw-summary"><div>No results found for “”</div></span></section></div></div></div></div></div>
+</li>
+        <li> <!--Software -->
+          <a href="https://www.openstack.org/software/" class="drop" id="dropdownMenuSoftware">Software <i class="fa fa-caret-down"></i></a>
+          <ul class="dropdown-menu dropdown-hover" role="menu" aria-labelledby="dropdownMenuSoftware">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/software/">Overview</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/software/project-navigator/openstack-components">OpenStack Components</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/software/project-navigator/sdks">SDKs</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/software/project-navigator/deployment-tools">Deployment Tools</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/assets/software/projectmap/openstack-map.pdf" target="_blank">OpenStack Map</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/software/sample-configs/">Sample Configs</a></li>
+          </ul>
+        </li>
+        <li> <!-- Use Cases -->
+          <a href="https://www.openstack.org/use-cases/" class="drop" id="dropdownMenuUsers">Use Cases <i class="fa fa-caret-down"></i></a>
+          <ul class="dropdown-menu dropdown-hover" role="menu" aria-labelledby="dropdownMenuUsers">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/use-cases/">Users in Production</a></li>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/use-cases/bare-metal/">Ironic Bare Metal</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/use-cases/edge-computing/">Edge Computing</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/use-cases/telecoms-and-nfv/">Telecom &amp; NFV</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/use-cases/science/">Science and HPC</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/use-cases/containers/">Containers</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/use-cases/enterprise/">Enterprise</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/surveys/landing">User Survey</a></li>
+          </ul>
+        </li>
+        <li> <!-- Events -->
+          <a href="https://www.openstack.org/events/" class="drop" id="dropdownMenuEvents">Events <i class="fa fa-caret-down"></i></a>
+          <ul class="dropdown-menu dropdown-hover" role="menu" aria-labelledby="dropdownMenuEvents">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/summit/">Open Infrastructure Summits</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/ptg/">Project Teams Gathering</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/events/opendev-2020/">OpenDev</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/events/community-events/">Community Events</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/events/openstackdays">OpenStack &amp; OpenInfra Days</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/videos/">Summit Videos</a></li>
+          </ul>
+        </li>
+        <li><!-- Community -->
+          <a href="https://www.openstack.org/community/" class="drop" id="dropdownMenuCommunity">Community <i class="fa fa-caret-down"></i></a>
+          <ul class="dropdown-menu dropdown-hover" role="menu" aria-labelledby="dropdownMenuCommunity">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/community/">Welcome! Start Here</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/community/tech-committee">OpenStack Technical Committee</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/community/speakers/">Speakers Bureau</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://wiki.openstack.org/">OpenStack Wiki</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/coa/">Get Certified (COA)</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/community/jobs/">Jobs</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/marketing/">Marketing Resources</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/news/">Community News</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://superuser.openstack.org/">Superuser Magazine</a></li>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/community/supporting-organizations/">OpenInfra Foundation Supporting Organizations</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://openinfra.dev/">Open Infrastructure Foundation (OpenInfra Foundation)</a></li>
+          </ul>
+        </li>
+        <li><!-- Marketplace -->
+          <a href="https://www.openstack.org/marketplace/" class="drop" id="dropdownMenuLearn">Marketplace <i class="fa fa-caret-down"></i></a>
+          <ul class="dropdown-menu dropdown-hover" role="menu" aria-labelledby="dropdownMenuEvents">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/marketplace/training/">Training</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/marketplace/distros/">Distros &amp; Appliances</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/marketplace/public-clouds/">Public Clouds</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/marketplace/hosted-private-clouds/">Hosted Private Clouds</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/marketplace/remotely-managed-private-clouds/">Remotely Managed Private Clouds</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/marketplace/consulting/">Consulting &amp; Integrators</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.openstack.org/marketplace/drivers/">Drivers</a></li>
+          </ul>
+        </li>
+        <li><!-- Blog -->
+          <a href="https://www.openstack.org/blog/">Blog</a>
+        </li>
+        <li><!-- Docs -->
+          <a href="http://docs.openstack.org/">Docs</a>
+        </li>
+        <li class="join-nav-section"> <!-- Join -->
+          <a href="https://openinfra.dev/join/" id="dropdownMenuJoin">Join <i class="fa fa-caret-down"></i></a>
+          <ul class="dropdown-menu dropdown-hover" role="menu" aria-labelledby="dropdownMenuJoin" style="display: none;">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://openinfra.dev/join/">Sign up for Foundation Membership</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://openinfra.dev/join/">Sponsor the Foundation</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://openinfra.dev/">More about the Foundation</a></li>
+          </ul>
+        </li>
+        <li> <!-- Login -->
+          <a href="https://www.openstack.org/Security/login/?BackURL=/home/" class="sign-in-btn">Log In</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- /.container -->
+</nav>
+
+    <div class="container docs-book-wrapper">
+      <div class="row">
+        <div class="col-lg-9 col-md-8 col-sm-8 col-lg-push-3 col-md-push-4 col-sm-push-4">
+<div class="row docs-title">
+  <div class="col-lg-8">
+      <h1>Launch an instance from a volume</h1>
+    
+  </div>
+  <div class="docs-actions">
+    
+    <a href="https://docs.openstack.org/nova/latest/user/launch-instance-from-image.html"><i class="fa fa-angle-double-left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Previous: Launch an instance from an image"></i></a>
+    
+    
+    <a href="https://docs.openstack.org/nova/latest/user/launch-instance-using-ISO-image.html"><i class="fa fa-angle-double-right" data-toggle="tooltip" data-placement="top" title="" data-original-title="Next: Launch an instance using ISO image"></i></a>
+    
+    <a id="pdfLink1" href="https://docs.openstack.org//nova/latest/doc-nova.pdf" target="_blank" title="Download the manuals as PDF"><i class="fa fa-file-pdf-o" data-toggle="tooltip" data-placement="top" title="" data-original-title="Download PDF"></i></a>
+    
+    <a id="logABugLink1" href="https://bugs.launchpad.net/nova/+filebug?field.title=Launch%20an%20instance%20from%20a%20volume%20in%20nova&amp;field.tags=doc&amp;field.comment=%0A%0A%0AThis%20bug%20tracker%20is%20for%20errors%20with%20the%20documentation,%20use%20the%20following%20as%20a%20template%20and%20remove%20or%20add%20fields%20as%20you%20see%20fit.%20Convert%20[%20]%20into%20[x]%20to%20check%20boxes:%0A%0A-%20[%20]%20This%20doc%20is%20inaccurate%20in%20this%20way:%20______%0A-%20[%20]%20This%20is%20a%20doc%20addition%20request.%0A-%20[%20]%20I%20have%20a%20fix%20to%20the%20document%20that%20I%20can%20paste%20below%20including%20example:%20input%20and%20output.%20%0A%0AIf%20you%20have%20a%20troubleshooting%20or%20support%20issue,%20use%20the%20following%20%20resources:%0A%0A%20-%20The%20mailing%20list:%20https://lists.openstack.org%0A%20-%20IRC:%20%27openstack%27%20channel%20on%20OFTC%0A%0A-----------------------------------%0ARelease:%2029.1.0.dev4%20on%202021-06-01%2015:34:23%0ASHA:%20fefa09d26cb80502ce8709e74ad7ad97e4553ca2%0ASource:%20https://opendev.org/openstack/nova/src/doc/source/user/launch-instance-from-volume.rst%0AURL:%20https://docs.openstack.org/nova/latest/user/launch-instance-from-volume.html" target="_blank" title="Found an error? Report a bug against this page"><i class="fa fa-bug" data-toggle="tooltip" data-placement="top" title="" data-original-title="Report a Bug"></i></a>
+    
+  </div>
+</div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="docs-body" role="main">
+
+  <section id="launch-an-instance-from-a-volume">
+<h1>Launch an instance from a volume<a class="headerlink" href="#launch-an-instance-from-a-volume" title="Link to this heading">¶</a></h1>
+<p>You can boot instances from a volume instead of an image.</p>
+<p>To complete these tasks, use these parameters on the
+<strong class="command">openstack server create</strong> command:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40.0%">
+<col style="width: 20.0%">
+<col style="width: 40.0%">
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Task</p></th>
+<th class="head"><p>openstack server create parameter(s)</p></th>
+<th class="head"><p>Information</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Boot an instance from an image and attach a non-bootable
+volume.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--block-device</span></code></p></td>
+<td><p><a class="reference internal" href="#boot-instance-from-image-and-attach-non-bootable-volume"><span class="std std-ref">Boot instance from image and attach non-bootable volume</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Create a volume from an image and boot an instance from that
+volume.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--boot-from-volume</span></code> and <code class="docutils literal notranslate"><span class="pre">--image</span></code>; <code class="docutils literal notranslate"><span class="pre">--block-device</span></code></p></td>
+<td><p><a class="reference internal" href="#create-volume-from-image-and-boot-instance"><span class="std std-ref">Boot instance from volume</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Boot from an existing source image, volume, or snapshot.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--volume</span></code> or <code class="docutils literal notranslate"><span class="pre">--snapshot</span></code>; <code class="docutils literal notranslate"><span class="pre">--block-device</span></code></p></td>
+<td><p><a class="reference internal" href="#create-volume-from-image-and-boot-instance"><span class="std std-ref">Boot instance from volume</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Attach a swap disk to an instance.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--swap</span></code></p></td>
+<td><p><a class="reference internal" href="#attach-swap-or-ephemeral-disk-to-an-instance"><span class="std std-ref">Attach swap or ephemeral disk to an instance</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Attach an ephemeral disk to an instance.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--ephemeral</span></code></p></td>
+<td><p><a class="reference internal" href="#attach-swap-or-ephemeral-disk-to-an-instance"><span class="std std-ref">Attach swap or ephemeral disk to an instance</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title"><div class="fa fa-fw fa-check-circle">&nbsp;</div>Note</p>
+<p>To attach a volume to a running instance, refer to the
+<a class="reference external" href="https://docs.openstack.org/cinder/latest/cli/cli-manage-volumes.html#attach-a-volume-to-an-instance">Cinder documentation</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title"><div class="fa fa-fw fa-check-circle">&nbsp;</div>Note</p>
+<p>The maximum limit on the number of disk devices allowed to attach to
+a single server is configurable with the option
+<a class="reference internal" href="https://docs.openstack.org/nova/latest/configuration/config.html#compute.max_disk_devices_to_attach" title="max_disk_devices_to_attach"><code class="xref oslo.config oslo.config-option docutils literal notranslate"><span class="pre">compute.max_disk_devices_to_attach</span></code></a>.</p>
+</div>
+<section id="boot-instance-from-image-and-attach-non-bootable-volume">
+<span id="id1"></span><h2>Boot instance from image and attach non-bootable volume<a class="headerlink" href="#boot-instance-from-image-and-attach-non-bootable-volume" title="Link to this heading">¶</a></h2>
+<p>You can create a non-bootable volume and attach that volume to an instance that
+you boot from an image.</p>
+<p>To create a non-bootable volume, do not create it from an image. The
+volume must be entirely empty with no partition table and no file
+system.</p>
+<ol class="arabic">
+<li><p>Create a non-bootable volume.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>openstack<span class="w"> </span>volume<span class="w"> </span>create<span class="w"> </span>--size<span class="w"> </span><span class="m">8</span><span class="w"> </span>test-volume
+<span class="go">+---------------------+--------------------------------------+</span>
+<span class="go">| Field               | Value                                |</span>
+<span class="go">+---------------------+--------------------------------------+</span>
+<span class="go">| attachments         | []                                   |</span>
+<span class="go">| availability_zone   | nova                                 |</span>
+<span class="go">| bootable            | false                                |</span>
+<span class="go">| consistencygroup_id | None                                 |</span>
+<span class="go">| created_at          | 2021-06-01T15:01:31.000000           |</span>
+<span class="go">| description         | None                                 |</span>
+<span class="go">| encrypted           | False                                |</span>
+<span class="go">| id                  | 006efd7a-48a8-4c75-bafb-6b483199d284 |</span>
+<span class="go">| migration_status    | None                                 |</span>
+<span class="go">| multiattach         | False                                |</span>
+<span class="go">| name                | test-volume                          |</span>
+<span class="go">| properties          |                                      |</span>
+<span class="go">| replication_status  | None                                 |</span>
+<span class="go">| size                | 8                                    |</span>
+<span class="go">| snapshot_id         | None                                 |</span>
+<span class="go">| source_volid        | None                                 |</span>
+<span class="go">| status              | creating                             |</span>
+<span class="go">| type                | lvmdriver-1                          |</span>
+<span class="go">| updated_at          | None                                 |</span>
+<span class="go">| user_id             | 0a4d2edb9042412ba4f719a547d42f79     |</span>
+<span class="go">+---------------------+--------------------------------------+</span>
+</pre></div>
+</div>
+</li>
+<li><p>List volumes and confirm that it is in the <code class="docutils literal notranslate"><span class="pre">available</span></code> state.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>openstack<span class="w"> </span>volume<span class="w"> </span>list
+<span class="go">+--------------------------------------+-------------+-----------+------+-------------+</span>
+<span class="go">| ID                                   | Name        | Status    | Size | Attached to |</span>
+<span class="go">+--------------------------------------+-------------+-----------+------+-------------+</span>
+<span class="go">| 006efd7a-48a8-4c75-bafb-6b483199d284 | test-volume | available |    8 |             |</span>
+<span class="go">+--------------------------------------+-------------+-----------+------+-------------+</span>
+</pre></div>
+</div>
+</li>
+<li><p>Create an instance, specifying the volume as a block device to attach.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>openstack<span class="w"> </span>server<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--flavor<span class="w"> </span><span class="nv">$FLAVOR</span><span class="w"> </span>--image<span class="w"> </span><span class="nv">$IMAGE</span><span class="w"> </span>--network<span class="w"> </span><span class="nv">$NETWORK</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--block-device<span class="w"> </span><span class="nv">uuid</span><span class="o">=</span>006efd7a-48a8-4c75-bafb-6b483199d284,source_type<span class="o">=</span>volume,destination_type<span class="o">=</span>volume<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--wait<span class="w"> </span>test-server
+<span class="go">+-------------------------------------+-----------------------------------------------------------------+</span>
+<span class="go">| Field                               | Value                                                           |</span>
+<span class="go">+-------------------------------------+-----------------------------------------------------------------+</span>
+<span class="go">| OS-DCF:diskConfig                   | MANUAL                                                          |</span>
+<span class="go">| OS-EXT-AZ:availability_zone         | nova                                                            |</span>
+<span class="go">| OS-EXT-SRV-ATTR:host                | devstack-ubuntu2004                                             |</span>
+<span class="go">| OS-EXT-SRV-ATTR:hypervisor_hostname | devstack-ubuntu2004                                             |</span>
+<span class="go">| OS-EXT-SRV-ATTR:instance_name       | instance-00000008                                               |</span>
+<span class="go">| OS-EXT-STS:power_state              | Running                                                         |</span>
+<span class="go">| OS-EXT-STS:task_state               | None                                                            |</span>
+<span class="go">| OS-EXT-STS:vm_state                 | active                                                          |</span>
+<span class="go">| OS-SRV-USG:launched_at              | 2021-06-01T15:13:48.000000                                      |</span>
+<span class="go">| OS-SRV-USG:terminated_at            | None                                                            |</span>
+<span class="go">| accessIPv4                          |                                                                 |</span>
+<span class="go">| accessIPv6                          |                                                                 |</span>
+<span class="go">| addresses                           | private=10.0.0.55, fde3:4790:906b:0:f816:3eff:fed5:ebd9         |</span>
+<span class="go">| adminPass                           | CZ76LZ9pNXzt                                                    |</span>
+<span class="go">| config_drive                        |                                                                 |</span>
+<span class="go">| created                             | 2021-06-01T15:13:37Z                                            |</span>
+<span class="go">| flavor                              | m1.tiny (1)                                                     |</span>
+<span class="go">| hostId                              | 425d65fe75c1e53cecbd32d3e686314235507b6edebbeaa56ff341c7        |</span>
+<span class="go">| id                                  | 446d1b00-b729-49b3-9dab-40a3fbe190cf                            |</span>
+<span class="go">| image                               | cirros-0.5.1-x86_64-disk (44d317a3-6183-4063-868b-aa0728576f5f) |</span>
+<span class="go">| key_name                            | None                                                            |</span>
+<span class="go">| name                                | test-server                                                     |</span>
+<span class="go">| progress                            | 0                                                               |</span>
+<span class="go">| project_id                          | ae93f388f934458c8e6583f8ab0dba2d                                |</span>
+<span class="go">| properties                          |                                                                 |</span>
+<span class="go">| security_groups                     | name='default'                                                  |</span>
+<span class="go">| status                              | ACTIVE                                                          |</span>
+<span class="go">| updated                             | 2021-06-01T15:13:49Z                                            |</span>
+<span class="go">| user_id                             | 0a4d2edb9042412ba4f719a547d42f79                                |</span>
+<span class="go">| volumes_attached                    | id='006efd7a-48a8-4c75-bafb-6b483199d284'                       |</span>
+<span class="go">+-------------------------------------+-----------------------------------------------------------------+</span>
+</pre></div>
+</div>
+</li>
+<li><p>List volumes once again to ensure the status has changed to <code class="docutils literal notranslate"><span class="pre">in-use</span></code> and
+the volume is correctly reporting the attachment.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>openstack<span class="w"> </span>volume<span class="w"> </span>list
+<span class="go">+--------------------------------------+-------------+--------+------+--------------------------------------+</span>
+<span class="go">| ID                                   | Name        | Status | Size | Attached to                          |</span>
+<span class="go">+--------------------------------------+-------------+--------+------+--------------------------------------+</span>
+<span class="go">| 006efd7a-48a8-4c75-bafb-6b483199d284 | test-volume | in-use |    1 | Attached to test-server on /dev/vdb  |</span>
+<span class="go">+--------------------------------------+-------------+--------+------+--------------------------------------+</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="boot-instance-from-volume">
+<span id="create-volume-from-image-and-boot-instance"></span><h2>Boot instance from volume<a class="headerlink" href="#boot-instance-from-volume" title="Link to this heading">¶</a></h2>
+<p>You can create a bootable volume from an existing image, volume, or snapshot.
+This procedure shows you how to create a volume from an image and use the
+volume to boot an instance.</p>
+<ol class="arabic">
+<li><p>List available images, noting the ID of the image that you wish to use.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>openstack<span class="w"> </span>image<span class="w"> </span>list
+<span class="go">+--------------------------------------+--------------------------+--------+</span>
+<span class="go">| ID                                   | Name                     | Status |</span>
+<span class="go">+--------------------------------------+--------------------------+--------+</span>
+<span class="go">| 44d317a3-6183-4063-868b-aa0728576f5f | cirros-0.5.1-x86_64-disk | active |</span>
+<span class="go">+--------------------------------------+--------------------------+--------+</span>
+</pre></div>
+</div>
+</li>
+<li><p>Create an instance, using the chosen image and requesting “boot from volume”
+behavior.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>openstack<span class="w"> </span>server<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--flavor<span class="w"> </span><span class="nv">$FLAVOR</span><span class="w"> </span>--network<span class="w"> </span><span class="nv">$NETWORK</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--image<span class="w"> </span>44d317a3-6183-4063-868b-aa0728576f5f<span class="w"> </span>--boot-from-volume<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--wait<span class="w"> </span>test-server
+<span class="go">+-------------------------------------+----------------------------------------------------------+</span>
+<span class="go">| Field                               | Value                                                    |</span>
+<span class="go">+-------------------------------------+----------------------------------------------------------+</span>
+<span class="go">| OS-DCF:diskConfig                   | MANUAL                                                   |</span>
+<span class="go">| OS-EXT-AZ:availability_zone         | nova                                                     |</span>
+<span class="go">| OS-EXT-SRV-ATTR:host                | devstack-ubuntu2004                                      |</span>
+<span class="go">| OS-EXT-SRV-ATTR:hypervisor_hostname | devstack-ubuntu2004                                      |</span>
+<span class="go">| OS-EXT-SRV-ATTR:instance_name       | instance-0000000c                                        |</span>
+<span class="go">| OS-EXT-STS:power_state              | Running                                                  |</span>
+<span class="go">| OS-EXT-STS:task_state               | None                                                     |</span>
+<span class="go">| OS-EXT-STS:vm_state                 | active                                                   |</span>
+<span class="go">| OS-SRV-USG:launched_at              | 2021-06-01T16:02:06.000000                               |</span>
+<span class="go">| OS-SRV-USG:terminated_at            | None                                                     |</span>
+<span class="go">| accessIPv4                          |                                                          |</span>
+<span class="go">| accessIPv6                          |                                                          |</span>
+<span class="go">| addresses                           | private=10.0.0.3, fde3:4790:906b:0:f816:3eff:fe40:bdd    |</span>
+<span class="go">| adminPass                           | rqT3RUYYa5H5                                             |</span>
+<span class="go">| config_drive                        |                                                          |</span>
+<span class="go">| created                             | 2021-06-01T16:01:55Z                                     |</span>
+<span class="go">| flavor                              | m1.tiny (1)                                              |</span>
+<span class="go">| hostId                              | 425d65fe75c1e53cecbd32d3e686314235507b6edebbeaa56ff341c7 |</span>
+<span class="go">| id                                  | 69b09fa0-6f24-4924-8311-c9bcdeb90dcb                     |</span>
+<span class="go">| image                               | N/A (booted from volume)                                 |</span>
+<span class="go">| key_name                            | None                                                     |</span>
+<span class="go">| name                                | test-server                                              |</span>
+<span class="go">| progress                            | 0                                                        |</span>
+<span class="go">| project_id                          | ae93f388f934458c8e6583f8ab0dba2d                         |</span>
+<span class="go">| properties                          |                                                          |</span>
+<span class="go">| security_groups                     | name='default'                                           |</span>
+<span class="go">| status                              | ACTIVE                                                   |</span>
+<span class="go">| updated                             | 2021-06-01T16:02:07Z                                     |</span>
+<span class="go">| user_id                             | 0a4d2edb9042412ba4f719a547d42f79                         |</span>
+<span class="go">| volumes_attached                    | id='673cbfcb-351c-42cb-9659-bca5b2a0361c'                |</span>
+<span class="go">+-------------------------------------+----------------------------------------------------------+</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title"><div class="fa fa-fw fa-check-circle">&nbsp;</div>Note</p>
+<p>Volumes created in this manner will not be deleted when the server is
+deleted and will need to be manually deleted afterwards. If you wish to
+change this behavior, you will need to pre-create the volume manually as
+discussed below.</p>
+</div>
+</li>
+<li><p>List volumes to ensure a new volume has been created and that its status is
+<code class="docutils literal notranslate"><span class="pre">in-use</span></code> and the volume is correctly reporting the attachment.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>openstack<span class="w"> </span>volume<span class="w"> </span>list
+<span class="go">+--------------------------------------+------+--------+------+--------------------------------------+</span>
+<span class="go">| ID                                   | Name | Status | Size | Attached to                          |</span>
+<span class="go">+--------------------------------------+------+--------+------+--------------------------------------+</span>
+<span class="go">| 673cbfcb-351c-42cb-9659-bca5b2a0361c |      | in-use |    1 | Attached to test-server on /dev/vda  |</span>
+<span class="go">+--------------------------------------+------+--------+------+--------------------------------------+</span>
+
+<span class="gp">$ </span>openstack<span class="w"> </span>server<span class="w"> </span>volume<span class="w"> </span>list<span class="w"> </span>test-server
+<span class="go">+--------------------------------------+----------+--------------------------------------+--------------------------------------+</span>
+<span class="go">| ID                                   | Device   | Server ID                            | Volume ID                            |</span>
+<span class="go">+--------------------------------------+----------+--------------------------------------+--------------------------------------+</span>
+<span class="go">| 673cbfcb-351c-42cb-9659-bca5b2a0361c | /dev/vda | 9c7f68d4-4d84-4c1e-83af-b8c6a56ad005 | 673cbfcb-351c-42cb-9659-bca5b2a0361c |</span>
+<span class="go">+--------------------------------------+----------+--------------------------------------+--------------------------------------+</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Rather than relying on nova to create the volume from the image, it is also
+possible to pre-create the volume before creating the instance. This can be
+useful when you want more control over the created volume, such as enabling
+encryption.</p>
+<ol class="arabic">
+<li><p>List available images, noting the ID of the image that you wish to use.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>openstack<span class="w"> </span>image<span class="w"> </span>list
+<span class="go">+--------------------------------------+--------------------------+--------+</span>
+<span class="go">| ID                                   | Name                     | Status |</span>
+<span class="go">+--------------------------------------+--------------------------+--------+</span>
+<span class="go">| 44d317a3-6183-4063-868b-aa0728576f5f | cirros-0.5.1-x86_64-disk | active |</span>
+<span class="go">+--------------------------------------+--------------------------+--------+</span>
+</pre></div>
+</div>
+</li>
+<li><p>Create a bootable volume from the chosen image.</p>
+<p>Cinder makes a volume bootable when <code class="docutils literal notranslate"><span class="pre">--image</span></code> parameter is passed.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>openstack<span class="w"> </span>volume<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--image<span class="w"> </span>44d317a3-6183-4063-868b-aa0728576f5f<span class="w"> </span>--size<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>test-volume
+<span class="go">+---------------------+--------------------------------------+</span>
+<span class="go">| Field               | Value                                |</span>
+<span class="go">+---------------------+--------------------------------------+</span>
+<span class="go">| attachments         | []                                   |</span>
+<span class="go">| availability_zone   | nova                                 |</span>
+<span class="go">| bootable            | false                                |</span>
+<span class="go">| consistencygroup_id | None                                 |</span>
+<span class="go">| created_at          | 2021-06-01T15:40:56.000000           |</span>
+<span class="go">| description         | None                                 |</span>
+<span class="go">| encrypted           | False                                |</span>
+<span class="go">| id                  | 9c7f68d4-4d84-4c1e-83af-b8c6a56ad005 |</span>
+<span class="go">| migration_status    | None                                 |</span>
+<span class="go">| multiattach         | False                                |</span>
+<span class="go">| name                | test-volume                          |</span>
+<span class="go">| properties          |                                      |</span>
+<span class="go">| replication_status  | None                                 |</span>
+<span class="go">| size                | 10                                   |</span>
+<span class="go">| snapshot_id         | None                                 |</span>
+<span class="go">| source_volid        | None                                 |</span>
+<span class="go">| status              | creating                             |</span>
+<span class="go">| type                | lvmdriver-1                          |</span>
+<span class="go">| updated_at          | None                                 |</span>
+<span class="go">| user_id             | 0a4d2edb9042412ba4f719a547d42f79     |</span>
+<span class="go">+---------------------+--------------------------------------+</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title"><div class="fa fa-fw fa-check-circle">&nbsp;</div>Note</p>
+<p>If you want to create a volume to a specific storage backend, you need
+to use an image which has the <code class="docutils literal notranslate"><span class="pre">cinder_img_volume_type</span></code> property. For
+more information, refer to the <a class="reference external" href="https://docs.openstack.org/cinder/latest//cli/cli-manage-volumes.html#volume-types">cinder docs</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title"><div class="fa fa-fw fa-check-circle">&nbsp;</div>Note</p>
+<p>A bootable encrypted volume can also be created by adding the
+<cite>–type ENCRYPTED_VOLUME_TYPE</cite> parameter to the volume create command.
+For example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>openstack<span class="w"> </span>volume<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--type<span class="w"> </span>ENCRYPTED_VOLUME_TYPE<span class="w"> </span>--image<span class="w"> </span>IMAGE<span class="w"> </span>--size<span class="w"> </span>SIZE<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>test-volume
+</pre></div>
+</div>
+<p>This requires an encrypted volume type which must be created ahead of
+time by an admin. Refer to
+<a class="reference external" href="https://docs.openstack.org/horizon/latest/admin/manage-volumes.html#create-an-encrypted-volume-type">the horizon documentation</a>.
+for more information.</p>
+</div>
+</li>
+<li><p>Create an instance, specifying the volume as the boot device.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>openstack<span class="w"> </span>server<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--flavor<span class="w"> </span><span class="nv">$FLAVOR</span><span class="w"> </span>--network<span class="w"> </span><span class="nv">$NETWORK</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--volume<span class="w"> </span>9c7f68d4-4d84-4c1e-83af-b8c6a56ad005<span class="se">\</span>
+<span class="w">    </span>--wait<span class="w"> </span>test-server
+<span class="go">+-------------------------------------+----------------------------------------------------------+</span>
+<span class="go">| Field                               | Value                                                    |</span>
+<span class="go">+-------------------------------------+----------------------------------------------------------+</span>
+<span class="go">| OS-DCF:diskConfig                   | MANUAL                                                   |</span>
+<span class="go">| OS-EXT-AZ:availability_zone         | nova                                                     |</span>
+<span class="go">| OS-EXT-SRV-ATTR:host                | devstack-ubuntu2004                                      |</span>
+<span class="go">| OS-EXT-SRV-ATTR:hypervisor_hostname | devstack-ubuntu2004                                      |</span>
+<span class="go">| OS-EXT-SRV-ATTR:instance_name       | instance-0000000a                                        |</span>
+<span class="go">| OS-EXT-STS:power_state              | Running                                                  |</span>
+<span class="go">| OS-EXT-STS:task_state               | None                                                     |</span>
+<span class="go">| OS-EXT-STS:vm_state                 | active                                                   |</span>
+<span class="go">| OS-SRV-USG:launched_at              | 2021-06-01T15:43:21.000000                               |</span>
+<span class="go">| OS-SRV-USG:terminated_at            | None                                                     |</span>
+<span class="go">| accessIPv4                          |                                                          |</span>
+<span class="go">| accessIPv6                          |                                                          |</span>
+<span class="go">| addresses                           | private=10.0.0.47, fde3:4790:906b:0:f816:3eff:fe89:b004  |</span>
+<span class="go">| adminPass                           | ueX74zzHWqL4                                             |</span>
+<span class="go">| config_drive                        |                                                          |</span>
+<span class="go">| created                             | 2021-06-01T15:43:13Z                                     |</span>
+<span class="go">| flavor                              | m1.tiny (1)                                              |</span>
+<span class="go">| hostId                              | 425d65fe75c1e53cecbd32d3e686314235507b6edebbeaa56ff341c7 |</span>
+<span class="go">| id                                  | 367b7d42-627c-4d10-a2a0-f759501499a6                     |</span>
+<span class="go">| image                               | N/A (booted from volume)                                 |</span>
+<span class="go">| key_name                            | None                                                     |</span>
+<span class="go">| name                                | test-server                                              |</span>
+<span class="go">| progress                            | 0                                                        |</span>
+<span class="go">| project_id                          | ae93f388f934458c8e6583f8ab0dba2d                         |</span>
+<span class="go">| properties                          |                                                          |</span>
+<span class="go">| security_groups                     | name='default'                                           |</span>
+<span class="go">| status                              | ACTIVE                                                   |</span>
+<span class="go">| updated                             | 2021-06-01T15:43:22Z                                     |</span>
+<span class="go">| user_id                             | 0a4d2edb9042412ba4f719a547d42f79                         |</span>
+<span class="go">| volumes_attached                    | id='9c7f68d4-4d84-4c1e-83af-b8c6a56ad005'                |</span>
+<span class="go">+-------------------------------------+----------------------------------------------------------+</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title"><div class="fa fa-fw fa-check-circle">&nbsp;</div>Note</p>
+<p>The example here uses the <code class="docutils literal notranslate"><span class="pre">--volume</span></code> option for simplicity. The
+<code class="docutils literal notranslate"><span class="pre">--block-device</span></code> option could also be used for more granular control
+over the parameters. See the <a class="reference external" href="https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/server.html#server-create">openstack server create</a> documentation for
+details.</p>
+</div>
+</li>
+<li><p>List volumes once again to ensure the status has changed to <code class="docutils literal notranslate"><span class="pre">in-use</span></code> and
+the volume is correctly reporting the attachment.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>openstack<span class="w"> </span>volume<span class="w"> </span>list
+<span class="go">+--------------------------------------+-------------+--------+------+--------------------------------------+</span>
+<span class="go">| ID                                   | Name        | Status | Size | Attached to                          |</span>
+<span class="go">+--------------------------------------+-------------+--------+------+--------------------------------------+</span>
+<span class="go">| 9c7f68d4-4d84-4c1e-83af-b8c6a56ad005 | test-volume | in-use |   10 | Attached to test-server on /dev/vda  |</span>
+<span class="go">+--------------------------------------+-------------+--------+------+--------------------------------------+</span>
+
+<span class="gp">$ </span>openstack<span class="w"> </span>server<span class="w"> </span>volume<span class="w"> </span>list<span class="w"> </span>test-server
+<span class="go">+--------------------------------------+----------+--------------------------------------+--------------------------------------+</span>
+<span class="go">| ID                                   | Device   | Server ID                            | Volume ID                            |</span>
+<span class="go">+--------------------------------------+----------+--------------------------------------+--------------------------------------+</span>
+<span class="go">| 9c7f68d4-4d84-4c1e-83af-b8c6a56ad005 | /dev/vda | c2368c38-6a7d-4fe8-bc4e-483e90e7608b | 9c7f68d4-4d84-4c1e-83af-b8c6a56ad005 |</span>
+<span class="go">+--------------------------------------+----------+--------------------------------------+--------------------------------------+</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="attach-swap-or-ephemeral-disk-to-an-instance">
+<span id="id3"></span><h2>Attach swap or ephemeral disk to an instance<a class="headerlink" href="#attach-swap-or-ephemeral-disk-to-an-instance" title="Link to this heading">¶</a></h2>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">--swap</span></code> option of the <code class="docutils literal notranslate"><span class="pre">openstack</span> <span class="pre">server</span></code> command to attach a swap
+disk on boot or the <code class="docutils literal notranslate"><span class="pre">--ephemeral</span></code> option to attach an ephemeral disk on boot.
+The latter can be specified multiple times. When you terminate the instance,
+both disks are deleted.</p>
+<p>Boot an instance with a 512 MB swap disk and 2 GB ephemeral disk.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>openstack<span class="w"> </span>server<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--flavor<span class="w"> </span>FLAVOR<span class="w"> </span>--image<span class="w"> </span>IMAGE<span class="w"> </span>--network<span class="w"> </span>NETWORK<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ephemeral<span class="w"> </span><span class="nv">size</span><span class="o">=</span><span class="m">2</span><span class="w"> </span>--swap<span class="w"> </span><span class="m">512</span>
+<span class="go">    --wait test-server</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title"><div class="fa fa-fw fa-check-circle">&nbsp;</div>Note</p>
+<p>The flavor defines the maximum swap and ephemeral disk size. You
+cannot exceed these maximum values.</p>
+</div>
+</section>
+</section>
+
+
+              </div>
+            </div>
+          </div>
+          <div class="docs-actions">
+          
+            <a href="https://docs.openstack.org/nova/latest/user/launch-instance-from-image.html"><i class="fa fa-angle-double-left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Previous: Launch an instance from an image"></i></a>
+          
+          
+            <a href="https://docs.openstack.org/nova/latest/user/launch-instance-using-ISO-image.html"><i class="fa fa-angle-double-right" data-toggle="tooltip" data-placement="top" title="" data-original-title="Next: Launch an instance using ISO image"></i></a>
+          
+          <a id="pdfLink2" href="https://docs.openstack.org//nova/latest/doc-nova.pdf" target="_blank" title="Download the manuals as PDF"><i class="fa fa-file-pdf-o" data-toggle="tooltip" data-placement="top" title="" data-original-title="Download PDF"></i></a>
+          
+            <a id="logABugLink3" href="https://bugs.launchpad.net/nova/+filebug?field.title=Launch%20an%20instance%20from%20a%20volume%20in%20nova&amp;field.tags=doc&amp;field.comment=%0A%0A%0AThis%20bug%20tracker%20is%20for%20errors%20with%20the%20documentation,%20use%20the%20following%20as%20a%20template%20and%20remove%20or%20add%20fields%20as%20you%20see%20fit.%20Convert%20[%20]%20into%20[x]%20to%20check%20boxes:%0A%0A-%20[%20]%20This%20doc%20is%20inaccurate%20in%20this%20way:%20______%0A-%20[%20]%20This%20is%20a%20doc%20addition%20request.%0A-%20[%20]%20I%20have%20a%20fix%20to%20the%20document%20that%20I%20can%20paste%20below%20including%20example:%20input%20and%20output.%20%0A%0AIf%20you%20have%20a%20troubleshooting%20or%20support%20issue,%20use%20the%20following%20%20resources:%0A%0A%20-%20The%20mailing%20list:%20https://lists.openstack.org%0A%20-%20IRC:%20%27openstack%27%20channel%20on%20OFTC%0A%0A-----------------------------------%0ARelease:%2029.1.0.dev4%20on%202021-06-01%2015:34:23%0ASHA:%20fefa09d26cb80502ce8709e74ad7ad97e4553ca2%0ASource:%20https://opendev.org/openstack/nova/src/doc/source/user/launch-instance-from-volume.rst%0AURL:%20https://docs.openstack.org/nova/latest/user/launch-instance-from-volume.html" target="_blank" title="Found an error? Report a bug against this page"><i class="fa fa-bug" data-toggle="tooltip" data-placement="top" title="" data-original-title="Report a Bug"></i></a>
+          
+          </div>
+          <div class="row docs-byline bottom">
+            <div class="docs-updated">this page last updated: 2021-06-01 15:34:23</div>
+          </div>
+          <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 docs-license">
+<a href="https://creativecommons.org/licenses/by/3.0/">
+ <img src="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/license.png" alt="Creative Commons Attribution 3.0 License">
+</a>
+<p>
+ Except where otherwise noted, this document is licensed under
+ <a href="https://creativecommons.org/licenses/by/3.0/">Creative Commons
+ Attribution 3.0 License</a>. See all <a href="https://www.openstack.org/legal">
+ OpenStack Legal Documents</a>.
+</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 docs-actions-wrapper">
+            <!-- ID buglinkbottom added so that pre-filled doc bugs
+                 are sent to Launchpad projects related to the
+                 document -->
+              <a href="https://bugs.launchpad.net/nova/+filebug?field.title=Launch%20an%20instance%20from%20a%20volume%20in%20nova&amp;field.tags=doc&amp;field.comment=%0A%0A%0AThis%20bug%20tracker%20is%20for%20errors%20with%20the%20documentation,%20use%20the%20following%20as%20a%20template%20and%20remove%20or%20add%20fields%20as%20you%20see%20fit.%20Convert%20[%20]%20into%20[x]%20to%20check%20boxes:%0A%0A-%20[%20]%20This%20doc%20is%20inaccurate%20in%20this%20way:%20______%0A-%20[%20]%20This%20is%20a%20doc%20addition%20request.%0A-%20[%20]%20I%20have%20a%20fix%20to%20the%20document%20that%20I%20can%20paste%20below%20including%20example:%20input%20and%20output.%20%0A%0AIf%20you%20have%20a%20troubleshooting%20or%20support%20issue,%20use%20the%20following%20%20resources:%0A%0A%20-%20The%20mailing%20list:%20https://lists.openstack.org%0A%20-%20IRC:%20%27openstack%27%20channel%20on%20OFTC%0A%0A-----------------------------------%0ARelease:%2029.1.0.dev4%20on%202021-06-01%2015:34:23%0ASHA:%20fefa09d26cb80502ce8709e74ad7ad97e4553ca2%0ASource:%20https://opendev.org/openstack/nova/src/doc/source/user/launch-instance-from-volume.rst%0AURL:%20https://docs.openstack.org/nova/latest/user/launch-instance-from-volume.html" id="logABugLink2" class="docs-footer-actions"><i class="fa fa-bug"></i> found an error? report a bug</a>
+            </div>
+          </div>
+        </div>
+<div class="col-lg-3 col-md-4 col-sm-4 col-lg-pull-9 col-md-pull-8 col-sm-pull-8 docs-sidebar">
+  <div class="btn-group docs-sidebar-releases">
+    <button onclick="location.href='/'" class="btn docs-sidebar-home" data-toggle="tooltip" data-placement="top" title="" data-original-title="OpenStack Docs Home"><i class="fa fa-arrow-circle-o-left"></i></button>
+<button type="button" data-toggle="dropdown" class="btn docs-sidebar-release-select">OpenStack Documentation<i class="fa fa-caret-down"></i></button>
+<ul class="dropdown-menu docs-sidebar-dropdown" role="menu">
+  <li role="presentation" class="dropdown-header">Guides</li>
+  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://docs.openstack.org/index.html#install-guides">Install Guides</a></li>
+  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://docs.openstack.org/index.html#user-guides">User Guides</a></li>
+  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://docs.openstack.org/index.html#configuration-guides">Configuration Guides</a></li>
+  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://docs.openstack.org/index.html#ops-and-admin-guides">Operations and Administration Guides</a></li>
+  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://docs.openstack.org/index.html#api-guides">API Guides</a></li>
+  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://docs.openstack.org/index.html#contributor-guides">Contributor Guides</a></li>
+  <li role="presentation" class="dropdown-header">Languages</li>
+  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://docs.openstack.org/de/">Deutsch (German)</a></li>
+  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://docs.openstack.org/fr/">Français (French)</a></li>
+  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://docs.openstack.org/id/">Bahasa Indonesia (Indonesian)</a></li>
+  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://docs.openstack.org/it/">Italiano (Italian)</a></li>
+  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://docs.openstack.org/ja/">日本語 (Japanese)</a></li>
+  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://docs.openstack.org/ko_KR/">한국어 (Korean)</a></li>
+  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://docs.openstack.org/pt_BR/">Português (Portuguese)</a></li>
+  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://docs.openstack.org/tr_TR/">Türkçe (Türkiye)</a></li>
+  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://docs.openstack.org/zh_CN/">简体中文 (Simplified Chinese)</a></li>
+</ul>
+  </div>
+  <div class="docs-sidebar-toc">
+    <div class="docs-sidebar-section" id="table-of-contents">
+      <a href="https://docs.openstack.org/nova/latest/index.html" class="docs-sidebar-section-title"><h4>nova 29.1.0.dev4</h4></a>
+      <ul>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.openstack.org/nova/latest/install/index.html">Compute service</a></li>
+</ul>
+
+    </div>
+
+  <div class="docs-sidebar-toc">
+    <div class="docs-sidebar-section" id="local-table-of-contents">
+      <h4 class="docs-sidebar-section-title">Page Contents</h4>
+      <ul>
+<li><a class="reference internal" href="#">Launch an instance from a volume</a><ul>
+<li><a class="reference internal" href="#boot-instance-from-image-and-attach-non-bootable-volume">Boot instance from image and attach non-bootable volume</a></li>
+<li><a class="reference internal" href="#boot-instance-from-volume">Boot instance from volume</a></li>
+<li><a class="reference internal" href="#attach-swap-or-ephemeral-disk-to-an-instance">Attach swap or ephemeral disk to an instance</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  </div>
+</div>
+      </div>
+    </div>
+<footer>
+  <div class="container">
+    <div class="row footer-links">
+      <div class="col-lg-2 col-sm-2">
+        <h3>OpenStack</h3>
+        <ul>
+          <li><a href="https://www.openstack.org/software/project-navigator/">Projects</a></li>
+          <li><a href="https://security.openstack.org/">OpenStack Security</a></li>
+          <li><a href="https://openstack.org/blog/">Blog</a></li>
+          <li><a href="https://openstack.org/news/">News</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <h3>Community</h3>
+        <ul>
+          <li><a href="https://www.meetup.com/pro/openinfradev/">User Groups</a></li>
+          <li><a href="https://openstack.org/community/events/">Events</a></li>
+          <li><a href="https://openstack.org/community/jobs/">Jobs</a></li>
+          <li><a href="https://openinfra.dev/members/">Companies</a></li>
+          <li><a href="https://docs.openstack.org/contributors">Contribute</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <h3>Documentation</h3>
+        <ul>
+          <li><a href="https://docs.openstack.org/">OpenStack Manuals</a></li>
+          <li><a href="https://openstack.org/software/start/">Getting Started</a></li>
+          <li><a href="https://developer.openstack.org/">API Documentation</a></li>
+          <li><a href="https://wiki.openstack.org/">Wiki</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <h3>Branding &amp; Legal</h3>
+        <ul>
+          <li><a href="https://openinfra.dev/legal">Legal Docs</a></li>
+          <li><a href="https://openstack.org/brand/">Logos &amp; Guidelines</a></li>
+          <li><a href="https://openinfra.dev/legal/trademark-policy">Trademark Policy</a></li>
+          <li><a href="https://openinfra.dev/privacy-policy">Privacy Policy</a></li>
+          <li><a href="https://docs.openstack.org/contributors/common/setup-gerrit.html#individual-contributor-license-agreement">OpenInfra CLA</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4 col-sm-4">
+        <h3>Stay In Touch</h3>
+        <a href="https://twitter.com/OpenStack" target="_blank" class="social-icons footer-twitter"></a>
+        <a href="https://www.facebook.com/openinfradev" target="_blank" class="social-icons footer-facebook"></a>
+        <a href="https://www.linkedin.com/company/open-infrastructure-foundation" target="_blank" class="social-icons footer-linkedin"></a>
+        <a href="https://www.youtube.com/user/OpenStackFoundation" target="_blank" class="social-icons footer-youtube"></a>
+        <p class="fine-print">
+          The OpenStack project is provided under the
+          <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>. Docs.openstack.org is powered by
+          <a href="https://rackspace.com/" target="_blank">Rackspace Cloud Computing</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- jQuery -->
+<script src="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/jquery-3.2.1.min.js"></script>
+
+<!-- Bootstrap JavaScript -->
+<script src="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/bootstrap.min.js"></script>
+
+<!-- The rest of the JS -->
+<script src="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/navigation.js"></script>
+
+<!-- Docs JS -->
+<script src="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/docs.js"></script>
+
+<!-- Javascript for page -->
+<script>
+  /* Build a description of this page including SHA, source location on git
+   * repo, build time and the project's launchpad bug tag. Set the HREF of the
+   * bug buttons
+   */
+    var lineFeed = "%0A";
+    var gitURL = "Source: Can't derive source file URL";
+
+    /* there have been cases where "pagename" wasn't set; better check for it */
+    /* "giturl" is the URL of the source file on Git and is auto-generated by
+     * openstackdocstheme.
+     *
+     * "pagename" is a standard sphinx parameter containing the name of
+     * the source file, without extension.
+     */
+
+    var sourceFile = "user/launch-instance-from-volume" + ".rst";
+    gitURL = "Source: https://opendev.org/openstack/nova/src/doc/source" + "/" + sourceFile;
+
+    /* gitsha, project and bug_tag rely on variables in conf.py */
+    var gitSha = "SHA: fefa09d26cb80502ce8709e74ad7ad97e4553ca2";
+    var repositoryName = "openstack/nova";
+    var bugProject = "nova";
+    var bugTitle = "Launch an instance from a volume in nova";
+    var fieldTags = "doc";
+    var useStoryboard = "";
+
+    /* "last_updated" is the build date and time. It relies on the
+       conf.py variable "html_last_updated_fmt", which should include
+       year/month/day as well as hours and minutes                   */
+    var buildstring = "Release: 29.1.0.dev4 on 2021-06-01 15:34:23";
+
+    var fieldComment = encodeURI(buildstring) +
+                       lineFeed + encodeURI(gitSha) +
+                       lineFeed + encodeURI(gitURL) ;
+
+    logABug(bugTitle, bugProject, fieldComment, fieldTags, repositoryName, useStoryboard);
+    var currentSourceFile = "user/launch-instance-from-volume";
+    var pdfFileName = "doc-nova.pdf";
+    pdfLink(currentSourceFile, pdfFileName);
+</script>
+
+
+<script>
+    $(document).ready(function(){
+
+          $.ajax({
+            context: this,
+            dataType : "html",
+            url : "https://docs.openstack.org/latest/badge.html",
+            success : function(results) {
+                $('#deprecated-badge-container').html(results);
+            }
+        });
+    });
+</script>
+<div id="deprecated-badge-container"><!-- Custom CSS -->
+
+ 
+  <link href="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/deprecated-badge.css" rel="stylesheet">
+  <script src="Launch%20an%20instance%20from%20a%20volume%20%E2%80%94%20nova%2029.1.0.dev4%20documentation_files/deprecated-badge.js">
+  </script>
+ 
+ 
+  <div class="deprecated-badge fixed deprecated-badge-development" id="deprecated-badge">
+   <span class="deprecated-badge-close-button" id="deprecated-badge-close-button" title="close">
+    x
+   </span>
+   <div class="container">
+    <p class="deprecated-badge-left">
+     This release is under development. The current supported release is
+     <a href="https://docs.openstack.org/2023.2/">
+      2023.2.
+     </a>
+    </p>
+    <a class="deprecated-badge-right" href="#top">
+     <i aria-hidden="true" class="fa fa-chevron-up">
+     </i>
+     Back to Top
+    </a>
+   </div>
+  </div>
+ 
+
+</div>
+
+  
+</body><iframe id="edge-translate-button" style="background-color: white; top: 5884.2px; left: 1265px;"></iframe></html>
